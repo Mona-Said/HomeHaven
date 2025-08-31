@@ -19,7 +19,12 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         home: Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+              title: Text(
+            'mona',
+            style: TextStyle(fontSize: 30, color: Colors.lightBlue),
+            textAlign: TextAlign.center,
+          )),
         ));
   }
 }

@@ -2,6 +2,10 @@
 class Assets {
   Assets._();
 
-  static const String fontsManropeVariableFontWght = 'assets/fonts/Manrope.ttf';
+  static const String fontsManrope = 'assets/fonts/Manrope.ttf';
   static const String imagesIcon = 'assets/images/icon.png';
+  static const String imagesOnboard1 = 'assets/images/onboard1.png';
+  static const String imagesOnboard2 = 'assets/images/onboard2.png';
+  static const String imagesOnboard3 = 'assets/images/onboard3.png';
+  static const String imagesSplash = 'assets/images/splash.png';
 }
