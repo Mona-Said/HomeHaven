@@ -1,9 +1,17 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:home_haven/onboarding/onboarding.dart';
 import 'package:home_haven/shared/bloc_observer.dart';
+import 'package:home_haven/shared/styles/themes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.light,
+  ));
 
   Bloc.observer = MyBlocObserver();
 
@@ -17,14 +25,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        home: Scaffold(
-          appBar: AppBar(
-              title: Text(
-            'mona',
-            style: TextStyle(fontSize: 30, color: Colors.lightBlue),
-            textAlign: TextAlign.center,
-          )),
-        ));
+        theme: light,
+        themeMode: ThemeMode.light,
+        home: OnboardScreen());
   }
 }
