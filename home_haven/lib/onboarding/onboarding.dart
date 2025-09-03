@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:home_haven/modules/login/login_screen.dart';
+import 'package:home_haven/shared/components/components.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class Model {
@@ -86,35 +87,18 @@ class _OnboardScreenState extends State<OnboardScreen> {
               start: 18.0,
               end: 18.0,
             ),
-            child: Container(
-              decoration: BoxDecoration(
-                  color: HexColor('#156651'),
-                  borderRadius: BorderRadius.circular(10.0)),
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              height: 43.0,
-              width: double.infinity,
-              child: MaterialButton(
-                onPressed: () {
-                  if (isLast) {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) => LoginScreen()));
-                  } else {
-                    controller.nextPage(
-                      duration: Duration(milliseconds: 750),
-                      curve: Curves.fastEaseInToSlowEaseOut,
-                    );
-                  }
-                },
-                child: Text(
-                  'Next',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
+            child: defaultButton(
+              text: 'Next',
+              onPressed: () {
+                if (isLast) {
+                  navigateAndFinish(context: context, widget: LoginScreen());
+                } else {
+                  controller.nextPage(
+                    duration: Duration(milliseconds: 750),
+                    curve: Curves.fastEaseInToSlowEaseOut,
+                  );
+                }
+              },
             ),
           ),
         ],

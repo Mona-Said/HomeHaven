@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 ThemeData light = ThemeData(
-  fontFamily: 'Manrope',
-  scaffoldBackgroundColor: HexColor('E5E5E5'),
-  appBarTheme: AppBarThemeData(
-    elevation: 0.0,
-    backgroundColor: HexColor('#F5F5F5'),
-  ),
-  progressIndicatorTheme:
-      ProgressIndicatorThemeData(color: HexColor('#156651')),
-  bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: Colors.white,
-      selectedItemColor: HexColor('#156651'),
-      unselectedItemColor: Colors.grey,
-      elevation: 20.0,
-      type: BottomNavigationBarType.fixed),
-  primaryColor: HexColor('#156651'),
-);
+    fontFamily: 'Manrope',
+    scaffoldBackgroundColor: HexColor('#F5F5F5'),
+    appBarTheme: AppBarThemeData(
+      elevation: 0.0,
+      backgroundColor: HexColor('#F5F5F5'),
+    ),
+    progressIndicatorTheme:
+        ProgressIndicatorThemeData(color: HexColor('#156651')),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: Colors.white,
+        selectedItemColor: HexColor('#156651'),
+        unselectedItemColor: Colors.grey,
+        elevation: 20.0,
+        type: BottomNavigationBarType.fixed),
+    colorSchemeSeed: HexColor('#156651'));

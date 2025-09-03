@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:home_haven/modules/login/login_screen.dart';
 import 'package:home_haven/onboarding/onboarding.dart';
 import 'package:home_haven/shared/bloc_observer.dart';
 import 'package:home_haven/shared/styles/themes.dart';
@@ -27,6 +28,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: light,
         themeMode: ThemeMode.light,
-        home: OnboardScreen());
+        home: LoginScreen());
   }
 }
