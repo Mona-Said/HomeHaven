@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:home_haven/modules/register/register_screen.dart';
-import 'package:home_haven/shared/components/components.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+import '../../shared/components/components.dart';
 
+class RegisterScreen extends StatelessWidget {
+  RegisterScreen({super.key});
+
+  var fNameController = TextEditingController();
+  var lNameController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -19,7 +22,7 @@ class LoginScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Welcome Back!',
+              'Create Account',
               style: TextStyle(
                   fontSize: 30.0,
                   fontWeight: FontWeight.bold,
@@ -29,7 +32,7 @@ class LoginScreen extends StatelessWidget {
               height: 8.0,
             ),
             Text(
-              'Enter your email to start shopping and get awesome deals today!',
+              'Fill in your details below to get started on a seamless shopping experience.',
               style: TextStyle(
                   fontSize: 14.0,
                   fontWeight: FontWeight.bold,
@@ -37,6 +40,36 @@ class LoginScreen extends StatelessWidget {
             ),
             SizedBox(
               height: 32.0,
+            ),
+            formField(
+              label: 'First Name',
+              prefix: Icons.person_outlined,
+              type: TextInputType.name,
+              controller: fNameController,
+              validateFunction: (value) {
+                if (value.isEmpty) {
+                  return 'Please,Enter Your First Name';
+                }
+                return null;
+              },
+            ),
+            SizedBox(
+              height: 16.0,
+            ),
+            formField(
+              label: 'Last Name',
+              prefix: Icons.person_outlined,
+              type: TextInputType.name,
+              controller: lNameController,
+              validateFunction: (value) {
+                if (value.isEmpty) {
+                  return 'Please,Enter Your Last Name';
+                }
+                return null;
+              },
+            ),
+            SizedBox(
+              height: 16.0,
             ),
             formField(
               label: 'Email Address',
@@ -66,41 +99,21 @@ class LoginScreen extends StatelessWidget {
               },
             ),
             SizedBox(
-              height: 50.0,
+              height: 25.0,
             ),
-            defaultButton(
-              text: 'Log In',
-              onPressed: () {},
+            Text(
+              'By clicking Create Account, you acknowledge you have read and agreed to our Terms of Use and Privacy Policy',
+              style: TextStyle(
+                fontSize: 13.0,
+                color: HexColor('#616161'),
+              ),
             ),
             SizedBox(
-              height: 35.0,
+              height: 40.0,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Don’t have an account?',
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    color: HexColor('#404040'),
-                  ),
-                ),
-                SizedBox(
-                  width: 5.0,
-                ),
-                InkWell(
-                  onTap: () {
-                    navigateTo(context: context, widget: RegisterScreen());
-                  },
-                  child: Text(
-                    'Register',
-                    style: TextStyle(
-                      fontSize: 15.0,
-                      color: HexColor('#156651'),
-                    ),
-                  ),
-                ),
-              ],
+            defaultButton(
+              text: 'Create Account',
+              onPressed: () {},
             ),
           ],
         ),
