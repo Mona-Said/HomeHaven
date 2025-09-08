@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:home_haven/modules/login/login_screen.dart';
 import 'package:home_haven/shared/bloc_observer.dart';
+import 'package:home_haven/shared/network/local/cache_helper.dart';
 import 'package:home_haven/shared/styles/themes.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await CacheHelper.init();
 
   await Supabase.initialize(
     url: 'https://swpbybulragefklvodtm.supabase.co',
