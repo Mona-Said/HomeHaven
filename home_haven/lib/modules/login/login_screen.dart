@@ -2,11 +2,13 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:home_haven/modules/home/home_screen.dart';
+import 'package:home_haven/layout/layout_screen.dart';
 import 'package:home_haven/modules/login/cubit/cubit.dart';
 import 'package:home_haven/modules/login/cubit/states.dart';
 import 'package:home_haven/modules/register/register_screen.dart';
 import 'package:home_haven/shared/components/components.dart';
+import 'package:home_haven/shared/network/local/cache_helper.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -22,7 +24,13 @@ class LoginScreen extends StatelessWidget {
       child: BlocConsumer<LoginCubit, LoginStates>(
         listener: (BuildContext context, state) {
           if (state is LoginSuccessState) {
-            navigateAndFinish(context: context, widget: HomeScreen());
+            itemToast(text: 'Login Successfully!', state: ToastStates.success);
+            final userId = Supabase.instance.client.auth.currentUser;
+            CacheHelper.putData(key: 'token', value: userId?.id).then((value) {
+              navigateAndFinish(context: context, widget: LayoutScreen());
+            });
+          } else if (state is LoginErrorState) {
+            itemToast(text: 'Login Error,Try Again', state: ToastStates.error);
           }
         },
         builder: (BuildContext context, state) {

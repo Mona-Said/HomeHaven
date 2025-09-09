@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:home_haven/modules/login/login_screen.dart';
 import 'package:home_haven/shared/components/components.dart';
+import 'package:home_haven/shared/network/local/cache_helper.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class Model {
@@ -43,6 +44,13 @@ class _OnboardScreenState extends State<OnboardScreen> {
           'If our products don\'t meet your expectations, we\'re available 24/7 to assist you.',
     ),
   ];
+
+  void storeDataCache() {
+    CacheHelper.putData(key: 'onboard', value: true).then((value) {
+      navigateAndFinish(context: context, widget: LoginScreen());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,7 +99,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
               text: 'Next',
               onPressed: () {
                 if (isLast) {
-                  navigateAndFinish(context: context, widget: LoginScreen());
+                  storeDataCache();
                 } else {
                   controller.nextPage(
                     duration: Duration(milliseconds: 750),

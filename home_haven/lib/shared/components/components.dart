@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 Widget defaultButton({
   required String text,
@@ -90,3 +91,32 @@ Widget formField({
         obscureText: obscureText,
       ),
     );
+
+void itemToast({required String text, required ToastStates state}) {
+  Fluttertoast.showToast(
+      msg: text,
+      fontSize: 16.0,
+      textColor: Colors.white,
+      backgroundColor: chooseToastColor(state),
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 5);
+}
+
+enum ToastStates { success, warning, error }
+
+Color chooseToastColor(ToastStates state) {
+  Color color;
+  switch (state) {
+    case ToastStates.success:
+      color = Colors.green;
+      break;
+    case ToastStates.warning:
+      color = Colors.amber;
+      break;
+    case ToastStates.error:
+      color = Colors.red;
+      break;
+  }
+  return color;
+}

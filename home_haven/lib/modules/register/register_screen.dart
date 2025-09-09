@@ -2,7 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:home_haven/modules/home/home_screen.dart';
+import 'package:home_haven/layout/layout_screen.dart';
 import 'package:home_haven/modules/register/cubit/cubit.dart';
 import 'package:home_haven/modules/register/cubit/states.dart';
 
@@ -24,7 +24,10 @@ class RegisterScreen extends StatelessWidget {
       child: BlocConsumer<RegisterCubit, RegisterStates>(
         listener: (BuildContext context, state) {
           if (state is CreateAccountSuccessState) {
-            navigateAndFinish(context: context, widget: HomeScreen());
+            itemToast(text: 'Welcome To HomeHaven', state: ToastStates.success);
+            navigateAndFinish(context: context, widget: LayoutScreen());
+          } else if (state is CreateAccountErrorState) {
+            itemToast(text: 'Error,Try Again', state: ToastStates.error);
           }
         },
         builder: (BuildContext context, state) {
