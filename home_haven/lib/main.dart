@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:home_haven/cubit/cubit.dart';
 import 'package:home_haven/layout/layout_screen.dart';
 import 'package:home_haven/modules/login/login_screen.dart';
 import 'package:home_haven/onboarding/onboarding.dart';
@@ -50,10 +52,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: light,
-        themeMode: ThemeMode.light,
-        home: startWidget);
+    return BlocProvider(
+      create: (BuildContext context) => HomeHavenCubit(),
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: light,
+          themeMode: ThemeMode.light,
+          home: startWidget),
+    );
   }
 }

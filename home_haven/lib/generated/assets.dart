@@ -3,6 +3,8 @@ class Assets {
   Assets._();
 
   static const String fontsManrope = 'assets/fonts/Manrope.ttf';
+  static const String imagesBanner1 = 'assets/images/banner1.png';
+  static const String imagesBanner2 = 'assets/images/banner2.png';
   static const String imagesIcon = 'assets/images/icon.png';
   static const String imagesOnboard1 = 'assets/images/onboard1.png';
   static const String imagesOnboard2 = 'assets/images/onboard2.png';

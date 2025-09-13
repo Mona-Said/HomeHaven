@@ -14,6 +14,8 @@ ThemeData light = ThemeData(
         backgroundColor: Colors.white,
         selectedItemColor: HexColor('#156651'),
         unselectedItemColor: Colors.grey,
-        elevation: 20.0,
+        elevation: 0.0,
+        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
         type: BottomNavigationBarType.fixed),
     colorSchemeSeed: HexColor('#156651'));
