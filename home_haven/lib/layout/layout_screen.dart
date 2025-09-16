@@ -14,6 +14,7 @@ class LayoutScreen extends StatelessWidget {
       builder: (BuildContext context, state) {
         var cubit = HomeHavenCubit.get(context);
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             title: Text(
               cubit.titles[cubit.currentIndex],

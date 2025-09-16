@@ -1,3 +1,11 @@
+class HomeModel {
+  List<ProductsModel> products = [];
+
+  HomeModel.fromJson(List<dynamic> json) {
+    products = json.map((element) => ProductsModel.fromJson(element)).toList();
+  }
+}
+
 class ProductsModel {
   int? id;
   String? title;

@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,12 +7,14 @@ import 'package:home_haven/modules/login/login_screen.dart';
 import 'package:home_haven/onboarding/onboarding.dart';
 import 'package:home_haven/shared/bloc_observer.dart';
 import 'package:home_haven/shared/network/local/cache_helper.dart';
+import 'package:home_haven/shared/network/remote/dio_helper.dart';
 import 'package:home_haven/shared/styles/themes.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
+  DioHelper.Init();
   Bloc.observer = MyBlocObserver();
 
   await Supabase.initialize(
@@ -53,7 +54,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => HomeHavenCubit(),
+      create: (BuildContext context) => HomeHavenCubit()..getHomeData(),
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: light,

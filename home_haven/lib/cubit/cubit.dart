@@ -4,6 +4,10 @@ import 'package:home_haven/cubit/states.dart';
 import 'package:home_haven/modules/cart/cart_screen.dart';
 import 'package:home_haven/modules/home/home_screen.dart';
 import 'package:home_haven/modules/profile/profile_screen.dart';
+import 'package:home_haven/shared/network/remote/dio_helper.dart';
+import 'package:home_haven/shared/network/remote/end_points.dart';
+
+import '../models/products_model.dart';
 
 class HomeHavenCubit extends Cubit<HomeHavenStates> {
   HomeHavenCubit() : super(InitialState());
@@ -30,5 +34,19 @@ class HomeHavenCubit extends Cubit<HomeHavenStates> {
   void changePage(int index) {
     currentIndex = index;
     emit(ChangePageState());
+  }
+
+  HomeModel? homeModel;
+
+  void getHomeData() {
+    emit(GetHomeDataLoadingState());
+
+    DioHelper.getData(url: PRODUCTS).then((value) {
+      homeModel = HomeModel.fromJson(value.data);
+      emit(GetHomeDataSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(GetHomeDataErrorState());
+    });
   }
 }
