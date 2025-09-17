@@ -11,14 +11,14 @@ Widget defaultButton({
           color: HexColor('#156651'),
           borderRadius: BorderRadius.circular(10.0)),
       clipBehavior: Clip.antiAliasWithSaveLayer,
-      height: 43.0,
+      height: 45.0,
       width: double.infinity,
       child: MaterialButton(
         onPressed: onPressed,
         child: Text(
           text,
           style: TextStyle(
-              color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.bold),
+              color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold),
         ),
       ),
     );
