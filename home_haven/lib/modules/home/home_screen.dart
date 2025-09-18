@@ -104,7 +104,11 @@ Widget buildAllScreen(HomeModel? model, context) {
 
 Widget buildItemGrid(ProductsModel model, BuildContext context) => InkWell(
       onTap: () {
-        navigateTo(context: context, widget: ProductDetails());
+        navigateTo(
+            context: context,
+            widget: ProductDetails(
+              model: model,
+            ));
       },
       child: Card(
         color: Colors.white,
@@ -114,10 +118,13 @@ Widget buildItemGrid(ProductsModel model, BuildContext context) => InkWell(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image(
-                image: NetworkImage('${model.images?.first}'),
-                height: 120.0,
-                width: 120.0,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
+                child: Image(
+                  image: NetworkImage('${model.images?.first}'),
+                  height: 120.0,
+                  width: 120.0,
+                ),
               ),
               SizedBox(
                 height: 10.0,
