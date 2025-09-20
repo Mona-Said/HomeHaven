@@ -23,6 +23,38 @@ Widget defaultButton({
       ),
     );
 
+Widget cancelButton({
+  required String text,
+  required VoidCallback onPressed,
+}) =>
+    Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      height: 45.0,
+      width: double.infinity,
+      child: OutlinedButton(
+        onPressed: onPressed,
+        style: OutlinedButton.styleFrom(
+          side: BorderSide(color: HexColor('#156651'), width: 1.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+        ),
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        child: Text(
+          text,
+          style: TextStyle(
+            color: HexColor('#156651'),
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+
 void navigateAndFinish(
         {required BuildContext context, required Widget widget}) =>
     Navigator.pushReplacement(
