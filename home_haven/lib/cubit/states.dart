@@ -9,3 +9,5 @@ class GetHomeDataLoadingState extends HomeHavenStates {}
 class GetHomeDataSuccessState extends HomeHavenStates {}
 
 class GetHomeDataErrorState extends HomeHavenStates {}
+
+class ClearCartState extends HomeHavenStates {}

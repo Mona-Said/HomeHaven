@@ -237,7 +237,14 @@ Widget buildItem(context, ProductsModel model) => Column(
                     SizedBox(
                       height: 28.0,
                     ),
-                    defaultButton(text: 'Add to Cart', onPressed: () {}),
+                    defaultButton(
+                        text: 'Add to Cart',
+                        onPressed: () {
+                          HomeHavenCubit.get(context).cartItems.add(model);
+                          itemToast(
+                              text: 'Added To Cart Successfully',
+                              state: ToastStates.success);
+                        }),
                   ],
                 ),
               ),

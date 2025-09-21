@@ -1,47 +1,84 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:home_haven/shared/components/components.dart';
+
+import '../../cubit/cubit.dart';
+import '../../cubit/states.dart';
+import '../../models/products_model.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsetsGeometry.directional(
-        start: 20.0,
-        end: 20.0,
-      ),
-      child: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            ListView.separated(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) => buildItemList(),
-              separatorBuilder: (context, index) => SizedBox(
-                height: 10.0,
+    return BlocConsumer<HomeHavenCubit, HomeHavenStates>(
+      listener: (BuildContext context, state) {},
+      builder: (BuildContext context, state) {
+        var cubit = HomeHavenCubit.get(context);
+        return Padding(
+          padding: const EdgeInsetsGeometry.directional(
+            start: 20.0,
+            end: 20.0,
+          ),
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: ConditionalBuilder(
+              condition: cubit.cartItems.isNotEmpty,
+              builder: (context) => Column(
+                children: [
+                  ListView.separated(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) =>
+                        buildItemList(cubit.cartItems[index], context),
+                    separatorBuilder: (context, index) => SizedBox(
+                      height: 10.0,
+                    ),
+                    itemCount: cubit.cartItems.length,
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  defaultButton(text: 'Checkout', onPressed: () {}),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  cancelButton(
+                      text: 'Cancel',
+                      onPressed: () {
+                        cubit.removeCart();
+                      }),
+                ],
               ),
-              itemCount: 3,
+              fallback: (context) => Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.remove_shopping_cart,
+                          size: 100.0,
+                          color: HexColor('#156651'),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ),
-            SizedBox(
-              height: 20.0,
-            ),
-            defaultButton(text: 'Checkout', onPressed: () {}),
-            SizedBox(
-              height: 13.0,
-            ),
-            cancelButton(text: 'Cancel', onPressed: () {}),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
 
-Widget buildItemList() => Card(
+Widget buildItemList(ProductsModel model, context) => Card(
       elevation: 5.0,
       color: Colors.white,
       child: Padding(
@@ -52,8 +89,7 @@ Widget buildItemList() => Card(
             ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
               child: Image(
-                image: NetworkImage(
-                    'https://hips.hearstapps.com/hmg-prod/images/spring-flowers-65de4a13478ee.jpg?crop=0.668xw:1.00xh;0.287xw,0&resize=640:*'),
+                image: NetworkImage('${model.images?.first}'),
                 height: 100.0,
                 width: 100.0,
               ),
@@ -66,20 +102,9 @@ Widget buildItemList() => Card(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'chair',
+                    '${model.title}',
                     style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      color: HexColor('#404040'),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 1.5,
-                  ),
-                  Text(
-                    '\$100',
-                    style: TextStyle(
-                      fontSize: 25.0,
+                      fontSize: 18.0,
                       fontWeight: FontWeight.bold,
                       color: HexColor('#404040'),
                     ),
@@ -92,6 +117,17 @@ Widget buildItemList() => Card(
                     style: TextStyle(
                       fontSize: 15.0,
                       color: HexColor('#0A0A0A'),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    '\$${model.price}',
+                    style: TextStyle(
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.bold,
+                      color: HexColor('#404040'),
                     ),
                   ),
                   Row(

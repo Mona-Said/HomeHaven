@@ -49,4 +49,11 @@ class HomeHavenCubit extends Cubit<HomeHavenStates> {
       emit(GetHomeDataErrorState());
     });
   }
+
+  List<ProductsModel> cartItems = [];
+
+  void removeCart() {
+    cartItems.clear();
+    emit(ClearCartState());
+  }
 }
