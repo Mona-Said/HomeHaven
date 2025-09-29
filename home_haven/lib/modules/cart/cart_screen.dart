@@ -17,6 +17,7 @@ class CartScreen extends StatelessWidget {
       listener: (BuildContext context, state) {},
       builder: (BuildContext context, state) {
         var cubit = HomeHavenCubit.get(context);
+
         return Padding(
           padding: const EdgeInsetsGeometry.directional(
             start: 20.0,
@@ -53,21 +54,14 @@ class CartScreen extends StatelessWidget {
                       }),
                 ],
               ),
-              fallback: (context) => Flexible(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.remove_shopping_cart,
-                          size: 100.0,
-                          color: HexColor('#156651'),
-                        ),
-                      ],
-                    ),
-                  ],
+              fallback: (context) => Center(
+                child: SizedBox(
+                  height: 650,
+                  child: Icon(
+                    Icons.remove_shopping_cart,
+                    size: 120.0,
+                    color: HexColor('#156651'),
+                  ),
                 ),
               ),
             ),
@@ -123,7 +117,7 @@ Widget buildItemList(ProductsModel model, context) => Card(
                     height: 5,
                   ),
                   Text(
-                    '\$${model.price}',
+                    '\$${HomeHavenCubit.get(context).getTotalPrice().toStringAsFixed(2)}',
                     style: TextStyle(
                       fontSize: 25.0,
                       fontWeight: FontWeight.bold,
@@ -143,7 +137,9 @@ Widget buildItemList(ProductsModel model, context) => Card(
                             Padding(
                               padding: const EdgeInsets.all(4.0),
                               child: InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  HomeHavenCubit.get(context).minus();
+                                },
                                 child: Icon(
                                   Icons.remove,
                                   size: 25.0,
@@ -155,7 +151,7 @@ Widget buildItemList(ProductsModel model, context) => Card(
                               width: 15.0,
                             ),
                             Text(
-                              '1',
+                              '${HomeHavenCubit.get(context).quantity}',
                               style: TextStyle(
                                 fontSize: 17.5,
                                 fontWeight: FontWeight.bold,
@@ -168,7 +164,9 @@ Widget buildItemList(ProductsModel model, context) => Card(
                             Padding(
                               padding: const EdgeInsets.all(4.0),
                               child: InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  HomeHavenCubit.get(context).plus();
+                                },
                                 child: Icon(
                                   Icons.add,
                                   size: 25.0,

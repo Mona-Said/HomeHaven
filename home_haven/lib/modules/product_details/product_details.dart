@@ -240,7 +240,7 @@ Widget buildItem(context, ProductsModel model) => Column(
                     defaultButton(
                         text: 'Add to Cart',
                         onPressed: () {
-                          HomeHavenCubit.get(context).cartItems.add(model);
+                          HomeHavenCubit.get(context).addToCart(model);
                           itemToast(
                               text: 'Added To Cart Successfully',
                               state: ToastStates.success);

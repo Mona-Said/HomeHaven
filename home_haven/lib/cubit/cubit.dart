@@ -14,7 +14,7 @@ class HomeHavenCubit extends Cubit<HomeHavenStates> {
 
   static HomeHavenCubit get(context) => BlocProvider.of(context);
 
-  List<Widget> screens = [
+  late List<Widget> screens = [
     HomeScreen(),
     CartScreen(),
     ProfileScreen(),
@@ -52,8 +52,52 @@ class HomeHavenCubit extends Cubit<HomeHavenStates> {
 
   List<ProductsModel> cartItems = [];
 
+  void addToCart(ProductsModel model) {
+    // Initialize the cart with the selected product
+    initialize(model);
+    cartItems.add(model);
+    emit(AddToCartState());
+  }
+
   void removeCart() {
     cartItems.clear();
     emit(ClearCartState());
+  }
+
+  int quantity = 1;
+  late int price; // Initialize price without null
+  late int totalPrice;
+
+  void initialize(ProductsModel model) {
+    price = model.price ?? price; // Set the price from the model
+    totalPrice = price;
+  }
+
+  void plus() {
+    quantity++;
+    updateTotalPrice();
+    emit(PlusItemsState());
+  }
+
+  void minus() {
+    if (quantity > 1) {
+      quantity--;
+      updateTotalPrice();
+      emit(MinusItemsState());
+    }
+  }
+
+  int getTotalPrice() {
+    int total = 0;
+    for (var item in cartItems) {
+      total += item.price! * quantity;
+    }
+    return total;
+  }
+
+  void updateTotalPrice() {
+    totalPrice = getTotalPrice(); // Recalculate total price
+    emit(TotalPriceUpdatedState(totalPrice));
+    //return totalPrice;
   }
 }

@@ -17,16 +17,17 @@ class ProductsModel {
   String? creationAt;
   String? updatedAt;
 
-  ProductsModel(
-      {this.id,
-      this.title,
-      this.slug,
-      this.price,
-      this.description,
-      this.category,
-      this.images,
-      this.creationAt,
-      this.updatedAt});
+  ProductsModel({
+    this.id,
+    this.title,
+    this.slug,
+    this.price,
+    this.description,
+    this.category,
+    this.images,
+    this.creationAt,
+    this.updatedAt,
+  });
 
   ProductsModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
