@@ -2,8 +2,8 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:home_haven/payment_gateway_stripe/payment_manager.dart';
 import 'package:home_haven/shared/components/components.dart';
-
 import '../../cubit/cubit.dart';
 import '../../cubit/states.dart';
 import '../../models/products_model.dart';
@@ -43,7 +43,12 @@ class CartScreen extends StatelessWidget {
                   SizedBox(
                     height: 20.0,
                   ),
-                  defaultButton(text: 'Checkout', onPressed: () {}),
+                  defaultButton(
+                      text: 'Checkout',
+                      onPressed: () {
+                        PaymentManager.makePayment(
+                            cubit.getTotalPrice(), 'USD');
+                      }),
                   SizedBox(
                     height: 10.0,
                   ),

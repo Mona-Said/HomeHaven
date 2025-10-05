@@ -5,11 +5,13 @@ import 'package:home_haven/cubit/cubit.dart';
 import 'package:home_haven/layout/layout_screen.dart';
 import 'package:home_haven/modules/login/login_screen.dart';
 import 'package:home_haven/onboarding/onboarding.dart';
+import 'package:home_haven/payment_gateway_stripe/stripe_keys.dart';
 import 'package:home_haven/shared/bloc_observer.dart';
 import 'package:home_haven/shared/network/local/cache_helper.dart';
 import 'package:home_haven/shared/network/remote/dio_helper.dart';
 import 'package:home_haven/shared/styles/themes.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,6 +31,8 @@ void main() async {
 
   bool? onBoarding = CacheHelper.getData(key: 'onboard');
   String? token = CacheHelper.getData(key: 'token');
+
+  Stripe.publishableKey = StripeKeys.publishableKey;
 
   Widget widget;
 
