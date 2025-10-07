@@ -6,7 +6,7 @@ import 'package:home_haven/modules/home/home_screen.dart';
 import 'package:home_haven/modules/profile/profile_screen.dart';
 import 'package:home_haven/shared/network/remote/dio_helper.dart';
 import 'package:home_haven/shared/network/remote/end_points.dart';
-
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../models/products_model.dart';
 
 class HomeHavenCubit extends Cubit<HomeHavenStates> {
@@ -23,7 +23,7 @@ class HomeHavenCubit extends Cubit<HomeHavenStates> {
   List<String> titles = [
     'Home',
     'My Cart',
-    'Profile',
+    'Edit Profile',
   ];
   final List<String> images = [
     'assets/images/banner1.png',
@@ -53,7 +53,6 @@ class HomeHavenCubit extends Cubit<HomeHavenStates> {
   List<ProductsModel> cartItems = [];
 
   void addToCart(ProductsModel model) {
-    // Initialize the cart with the selected product
     initialize(model);
     cartItems.add(model);
     emit(AddToCartState());
@@ -65,11 +64,11 @@ class HomeHavenCubit extends Cubit<HomeHavenStates> {
   }
 
   int quantity = 1;
-  late int price; // Initialize price without null
+  late int price;
   late int totalPrice;
 
   void initialize(ProductsModel model) {
-    price = model.price ?? price; // Set the price from the model
+    price = model.price ?? price;
     totalPrice = price;
   }
 
@@ -96,8 +95,55 @@ class HomeHavenCubit extends Cubit<HomeHavenStates> {
   }
 
   void updateTotalPrice() {
-    totalPrice = getTotalPrice(); // Recalculate total price
+    totalPrice = getTotalPrice();
     emit(TotalPriceUpdatedState(totalPrice));
-    //return totalPrice;
   }
+
+  final supabase = Supabase.instance.client;
+
+  void getUserData() {
+    emit(GetUserDataLoadingState());
+    supabase.from('profiles').select().then((value) {
+      print(value);
+      emit(GetUserDataSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(GetUserDataErrorState());
+    });
+  }
+
+  Future<void> updateUserData({
+    required String fName,
+    required String lName,
+    required String email,
+  }) {
+    emit(UpdateUserDataLoadingState());
+    return supabase
+        .from('profiles')
+        .update({'first_name': fName, 'last_name': lName, 'email': email})
+        .eq('id', supabase.auth.currentUser!.id)
+        .then((value) {
+          getUserData();
+          emit(UpdateUserDataSuccessState());
+        })
+        .catchError((error) {
+          print(error.toString());
+          emit(UpdateUserDataErrorState());
+        });
+  }
+
+  // Future<void> fetchData() {
+  //   return supabase
+  //       .from('profiles')
+  //       .select('first_name')
+  //       .eq(
+  //           'id',
+  //           supabase
+  //               .auth.currentUser!.id) // Replace with the actual ID or filter
+  //       .single()
+  //       .then((value) {})
+  //       .catchError((error) {
+  //     print(error.toString());
+  //   });
+  // }
 }

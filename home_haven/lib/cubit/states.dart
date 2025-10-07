@@ -22,3 +22,15 @@ class TotalPriceUpdatedState extends HomeHavenStates {
   int totalPrice;
   TotalPriceUpdatedState(this.totalPrice);
 }
+
+class GetUserDataLoadingState extends HomeHavenStates {}
+
+class GetUserDataSuccessState extends HomeHavenStates {}
+
+class GetUserDataErrorState extends HomeHavenStates {}
+
+class UpdateUserDataLoadingState extends HomeHavenStates {}
+
+class UpdateUserDataSuccessState extends HomeHavenStates {}
+
+class UpdateUserDataErrorState extends HomeHavenStates {}
