@@ -42,4 +42,4 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-stripe_keys.dart
+/lib/payment_gateway_stripe/stripe_keys.dart
